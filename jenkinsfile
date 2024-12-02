@@ -57,6 +57,7 @@ pipeline{
             steps{
 
                 script{
+                    sh 'docker rmi senac/tarefa'
 //                     sh 'chmod -c 777 /var/run/docker.sock'
                     sh 'docker build -t ms/user .'
 
