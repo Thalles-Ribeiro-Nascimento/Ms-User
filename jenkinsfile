@@ -1,0 +1,87 @@
+pipeline{
+
+    agent any
+
+    //Biblioteca
+
+    tools{
+
+        maven 'Maven Instalações' //Nome do maven
+
+    }
+
+    //Estágio de ação 
+
+    stages{
+
+          //Estágio para criar o maven
+
+        stage('Build Maven 3.8.5'){
+
+            steps{
+
+                //Comando para criar um git clone
+
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Thalles-Ribeiro-Nascimento/Ms-User']])
+
+                //Comando sh é para escrever no terminal
+
+                sh 'mvn clean install -U'
+
+            }
+
+        }
+
+        //Estágio para deletar a imagem e o container
+
+        // stage('Delete from docker image in container'){
+
+        //     steps{
+
+        //         script{
+
+        //             sh 'docker rm -f senac-tarefa .'
+
+        //             sh 'docker rmi senac/tarefa'
+
+        //         }
+
+        //     }
+
+        // }
+
+        //Estágio para criar a imagem do docker
+
+        stage('Build image docker'){
+
+            steps{
+
+                script{
+
+                    sh 'docker build -t ms/user .'
+
+                }
+
+            }
+
+        }
+
+        //Estágio para criar um container no docker
+
+        stage('Creating the container'){
+
+            steps{
+
+                script{
+
+                    sh 'docker run --name ms-user -p 8081:8081 -d ms/user'
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
