@@ -10,7 +10,7 @@ pipeline{
 
     }
 
-    //Estágio de ação 
+    //Estágio de ação
 
     stages{
 
