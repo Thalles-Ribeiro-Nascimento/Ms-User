@@ -4,11 +4,11 @@ pipeline{
 
     //Biblioteca
 
-    tools{
+//    tools{
 
-        maven 'Maven Instalações' //Nome do maven
+  //      maven 'Maven Instalações' //Nome do maven
 
-    }
+    //}
 
     //Estágio de ação
 
